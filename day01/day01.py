@@ -1,7 +1,7 @@
 import pandas as pd
 import numpy as np
 
-rotations = pd.read_csv('advent2025/day01/input', names=['instr'], header=None)
+rotations = pd.read_csv('day01/input', names=['instr'], header=None)
 
 # Part I
 rotations = rotations.assign(

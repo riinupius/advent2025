@@ -1,7 +1,7 @@
 import pandas as pd
 import numpy as np
 
-with open('advent2025/day02/input', 'r') as f:
+with open('day02/input', 'r') as f:
     ranges_input = f.readline().strip().split(sep = ",")
 
 # Part I
