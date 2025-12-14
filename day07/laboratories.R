@@ -4,6 +4,7 @@ library(igraph)
 filename = "day07/input-test"
 len = readLines(filename, 1) |> str_count("")
 
+
 input_orig = read.fwf(filename, widths = rep(1, len)) %>% 
   rowid_to_column("row")
 
@@ -33,6 +34,13 @@ g = manifold %>%
   graph_from_data_frame()
 
 # This is fine for test, but runs out of memory for real input
-paths = all_simple_paths(g, from = start, to = lastrow)
-splitters %in% names(unlist(paths)) %>% sum()
+# paths = all_simple_paths(g, from = start, to = lastrow)
+# splitters %in% names(unlist(paths)) %>% sum()
 
+d = distances(g, v = start, to = splitters, mode = "out")
+sum(d < Inf)
+
+
+# Part II
+paths = all_simple_paths(g, from = start, to = lastrow)
+paths %>% length()
