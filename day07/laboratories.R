@@ -44,3 +44,30 @@ sum(d < Inf)
 # Part II
 paths = all_simple_paths(g, from = start, to = lastrow)
 paths %>% length()
+
+parents = distances(g, v = splitters, to = splitters, mode = "out") %>% 
+  as_tibble() %>% 
+  mutate(from = splitters) %>% 
+  pivot_longer(-from) %>% 
+  filter(value > 0 & value < Inf) %>% 
+  group_by(from) %>% 
+  slice_min(value)
+
+parents %>% 
+  graph_from_data_frame(directed = TRUE) %>% 
+  plot()
+
+npaths = rep(0, length(splitters))
+npaths[1] = 1
+names(npaths) = splitters
+npaths["3-8"]
+
+for (s in splitters){
+  if (s == "3-8"){next}
+  #s = "9-7"
+  p = parents %>% 
+    filter(name == s) %>% 
+    pull(from)
+  npaths[s] = sum(npaths[p])
+}
+sum(npaths)
